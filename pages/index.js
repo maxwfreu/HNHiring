@@ -4,6 +4,21 @@ import fetch from 'isomorphic-unfetch'
 
 const rowHeight = 50;
 
+const POST_MAPPING = [
+  {
+    id: 18807017,
+    title: 'January 2019',
+  },
+  {
+    id: 18589702,
+    title: 'December 2018'
+  },
+  {
+    id: 18354503,
+    title: 'November 2018',
+  },
+]
+
 export default class Home extends React.Component {
   static filter(item, value) {
     const inDescriptions = (item.description.filter(description => (
@@ -39,6 +54,7 @@ export default class Home extends React.Component {
     this.deleteFilter = this.deleteFilter.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
+    this.changePost = this.changePost.bind(this);
   }
 
   componentDidMount() {
@@ -98,6 +114,19 @@ export default class Home extends React.Component {
     this.filterList({ target: { value: '' }})
   }
 
+  async changePost(e) {
+    console.log(e.target.value)
+    const postId = e.target.value;
+
+    const res = await fetch(`http://localhost:80/id?id=${postId}`);
+    const listings = await res.json();
+
+    this.setState({
+      listings,
+      filteredListings: listings,
+    });
+  }
+
   renderRow({ index, key, style, parent }) {
     const listing = this.state.filteredListings[index];
     return (
@@ -134,14 +163,26 @@ export default class Home extends React.Component {
       <Main>
         <div>
           <div className="heading-wrapper">
-            <h1>Hacker News Job Listings </h1>
-            <input
-              type="text"
-              placeholder="Type to search, enter to add filter"
-              value={this.state.search}
-              onChange={this.filterList}
-              onKeyPress={this.addFilter}
-            />
+            <h1>Hacker News Job Listings: January 2019</h1>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <input
+                type="text"
+                placeholder="Type to search, enter to add filter"
+                value={this.state.search}
+                onChange={this.filterList}
+                onKeyPress={this.addFilter}
+              />
+              <select onChange={this.changePost}>
+                {POST_MAPPING.map(post => (
+                  <option
+                    key={post.id}
+                    value={post.id}
+                  >
+                    {post.title}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="filter-item-wrappers">
               {this.state.filters.map((filter, index) => (
                 <div className="filter-item" key={filter}>
