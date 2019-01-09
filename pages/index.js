@@ -163,7 +163,7 @@ export default class Home extends React.Component {
       <Main>
         <div>
           <div className="heading-wrapper">
-            <h1>Hacker News Job Listings: January 2019</h1>
+            <h1 className="title">Hacker News Job Listings: January 2019</h1>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <input
                 type="text"
@@ -182,6 +182,14 @@ export default class Home extends React.Component {
                   </option>
                 ))}
               </select>
+              <a
+                className="github"
+                href="https://github.com/maxwfreu/HNHiring"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src="static/images/github.png" />
+              </a>
             </div>
             <div className="filter-item-wrappers">
               {this.state.filters.map((filter, index) => (

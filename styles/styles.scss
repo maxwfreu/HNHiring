@@ -11,6 +11,18 @@ h1 {
   color: $font-color;
   margin-top: 8px;
   margin-bottom: 8px;
+
+  @media(max-width: 800px) {
+    &.title {
+      font-size: 20px;
+    }
+  }
+
+  @media(max-width: 800px) {
+    &.title {
+      margin-right: 120px;
+    }
+  }
 }
 
 .heading-wrapper {
@@ -126,5 +138,31 @@ h1 {
 
   p {
     word-break: break-word;
+  }
+}
+
+.github {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background-color: transparent;
+  border: none;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@media(max-width: 800px) {
+  .github {
+    height: 30px;
+    width: 30px;
   }
 }
